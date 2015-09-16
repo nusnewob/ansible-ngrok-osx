@@ -1,0 +1,15 @@
+---
+
+- name: install service
+  command: launchctl load {{ngrok_init}}
+
+- name: remove service
+  command: launchctl remove {{ngrok_svc}}
+  when: ngrok_svc_installed.stat.exists
+
+- name: stop service
+  command: launchctl stop {{ngrok_svc}}
+  when: ngrok_conf_installed.stat.exists
+
+- name: start service
+  command: launchctl start {{ngrok_svc}}

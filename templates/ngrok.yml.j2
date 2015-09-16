@@ -1,0 +1,17 @@
+update: true
+update_channel: stable
+authtoken: {{ngrok_api_key}}
+console_ui: false
+compress_conn: true
+log_level: info
+log_format: logfmt
+log: {{ngrok_log}}
+web_addr: {{ngrok_web}}
+metadata: {{ngrok_client_name}}
+tunnels:
+  {% for n in ngrok_tunnels %}
+  {{n}}:
+    {% for k in ngrok_tunnels[n] %}
+    {{k}}: {{ngrok_tunnels[n][k]}}
+    {% endfor %}
+  {% endfor %}

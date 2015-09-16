@@ -1,0 +1,6 @@
+ngrok_conf: /etc/ngrok.yml
+ngrok_init: /Library/LaunchDaemons/ngrok.plist
+ngrok_pkg: Caskroom/cask/ngrok
+ngrok_svc: ngrok
+ngrok_log: /var/log/ngrok.log
+ngrok_web: 127.0.0.1:4040

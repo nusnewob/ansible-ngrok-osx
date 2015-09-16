@@ -1,0 +1,47 @@
+---
+
+- name: Locate ngrok executable
+  command: which ngrok
+  register: ngrok_bin
+
+- name: Check ngrok LaunchDaemon
+  stat:
+    path: "{{ngrok_init}}"
+    get_checksum: no
+    get_md5: no
+  register: ngrok_svc_installed
+
+- name: Check ngrok config
+  stat:
+    path: "{{ngrok_conf}}"
+    get_checksum: no
+    get_md5: no
+  register: ngrok_conf_installed
+
+- name: Install ngrok
+  homebrew:
+    name: Caskroom/cask/ngrok
+    state: present
+  when: ngrok_bin.stderr != ""
+
+- name: Install ngrok config
+  template:
+    src: ngrok.yml.j2
+    dest: "{{ngrok_conf}}"
+    owner: root
+    group: admin
+    mode: 0644
+  notify:
+    - stop service
+    - start service
+
+- name: Install ngrok Launch Daemon
+  template:
+    src: ngrok.plist.j2
+    dest: "{{ngrok_init}}"
+    owner: root
+    group: admin
+    mode: 0644
+  notify:
+    - remove service
+    - install service
