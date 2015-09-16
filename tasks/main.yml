@@ -24,6 +24,14 @@
     state: present
   when: ngrok_bin.stderr != ""
 
+- name: Create ngrok log file
+  file:
+    path: "{{ngrok_log}}"
+    state: file
+    owner: nobody
+    group: admin
+    mode: 0644
+
 - name: Install ngrok config
   template:
     src: ngrok.yml.j2
