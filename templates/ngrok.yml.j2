@@ -9,9 +9,9 @@ log: {{ngrok_log}}
 web_addr: {{ngrok_web}}
 metadata: {{ngrok_client_name}}
 tunnels:
-  {% for n in ngrok_tunnels %}
+{% for n in ngrok_tunnels %}
   {{n}}:
-    {% for k in ngrok_tunnels[n] %}
+{% for k in ngrok_tunnels[n] %}
     {{k}}: {{ngrok_tunnels[n][k]}}
-    {% endfor %}
-  {% endfor %}
+{% endfor %}
+{% endfor %}
